@@ -5,8 +5,8 @@
 from __future__ import unicode_literals
 import frappe
 from frappe.model.document import Document
-from frappe.utils import get_url
 from six.moves.urllib.parse import urlencode
+from frappe.utils import get_url, call_hook_method, flt, cint
 
 class SmartPOS(Document):
 	pass
@@ -33,7 +33,7 @@ def make_invoice(doctype,name):
 		}).insert()
 		#sinv_doc = sales_invoice.save()
 		sales_invoice.submit()
-		print_url = get_url("/printview?doctype=Sales%20Invoice&name="+str(sales_invoice.name)+"&trigger_print=1&format="+str(get_print_format()))
+		print_url  = get_url("/printview?doctype="+str(sales_invoice.doctype)+"&name="+str(sales_invoice.name)+"&trigger_print=1&format="+str(get_print_format())).format(from frappe.utils import get_url, call_hook_method, flt, cint)
 		return print_url
 
 @frappe.whitelist(allow_guest=True)
